@@ -1,6 +1,6 @@
-package Ejercicio4;
+package Ejercicio7;
 
-public class Shape {
+public abstract class Shape {
     String color;
     boolean filled;
 
@@ -31,6 +31,10 @@ public class Shape {
     public void setFilled(boolean filled) {
 
     }
+
+    public abstract double getArea();
+
+    public abstract double getPerimeter();
 
     @Override
     public String toString() {

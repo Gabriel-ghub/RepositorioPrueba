@@ -1,6 +1,6 @@
-package Ejercicio4;
+package Ejercicio7;
 
-public class Circle extends Shape {
+public class Circle extends Shape{
     double radius;
 
     public Circle(){

@@ -1,7 +1,6 @@
-package Ejercicio4;
+package Ejercicio7;
 
-public class Rectangle extends Shape {
-
+public class Rectangle extends Shape{
     public double width;
     public double length;
 

@@ -1,15 +1,15 @@
 public class Patient {
     String dni;
-    String socialSecurity;
+    String ssn;
     String name;
     String lastName;
     int age;
     int phone;
     String disease;
 
-    public Patient(String dni, String socialSecurity, String name, String lastName, int age, int phone, String disease) {
+    public Patient(String dni, String ssn, String name, String lastName, int age, int phone, String disease) {
         this.dni = dni;
-        this.socialSecurity = socialSecurity;
+        this.ssn = ssn;
         this.name = name;
         this.lastName = lastName;
         this.age = age;
@@ -25,12 +25,12 @@ public class Patient {
         this.dni = dni;
     }
 
-    public String getSocialSecurity() {
-        return socialSecurity;
+    public String getSsn() {
+        return ssn;
     }
 
-    public void setSocialSecurity(String socialSecurity) {
-        this.socialSecurity = socialSecurity;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 
     public String getName() {
@@ -77,7 +77,7 @@ public class Patient {
     public String toString() {
         return "Patient{" +
                 "dni='" + dni + '\'' +
-                ", socialSecurity='" + socialSecurity + '\'' +
+                ", socialSecurity='" + ssn + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +

@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Hospital {
     String name;
     double money;
-    ArrayList<String> specialities= (ArrayList<String>) Arrays.asList("DERMATOLOGY","CARDIOLOGY","PULMONOLOGY","PEDIATRICS","TRAUMATOLOGY");
+    ArrayList<String> specialities = new ArrayList<String>();
     ArrayList<Patient>patientsWaiting;
     ArrayList<Doctor>doctors;
 
@@ -15,6 +15,12 @@ public class Hospital {
         this.money= money;
         this.patientsWaiting=new ArrayList<Patient>();
         this.doctors=new ArrayList<Doctor>();
+        specialities.add("DERMATOLOGY");
+        specialities.add("CARDIOLOGY");
+        specialities.add("PULMONOLOGY");
+        specialities.add("PEDIATRICS");
+        specialities.add("TRAUMATOLOGY");
+
     }
 
     public void addPatient(Patient patient){

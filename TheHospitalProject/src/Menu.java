@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,19 +17,12 @@ public class Menu {
             System.out.println(
                     "MENU:" + "\n" +
                             "1- Register patient\n" +
-                            "\n" +
                             "2- Register doctor\n" +
-                            "\n" +
                             "3- Modify patient\n" +
-                            "\n" +
                             "4- Modify doctor\n" +
-                            "\n" +
                             "5- Show all patients\n" +
-                            "\n" +
                             "6- Show all doctors\n" +
-                            "\n" +
                             "7- Delete doctor\n" +
-                            "\n" +
                             "8 - Exit"
             );
 
@@ -90,8 +84,12 @@ public class Menu {
         int age;
         int phone;
         String disease;
-        System.out.println("Por favor, ingrese los datos del paciente: \n DNI:");
-        dni = s.next();
+        String dniTemp =s.next();
+        while(dniTemp.length() !=9){
+            System.out.println("Error de longitud, ingrese un DNI correcto:");
+            dniTemp= s.next();
+        }
+        dni = validarDni(dniTemp);
 
         System.out.println("Numero de la Seguridad Social:");
         ssn = s.next();
@@ -123,8 +121,14 @@ public class Menu {
         int age;
         String speciality;
         double salary;
+
         System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
-        dni = s.next();
+        String dniTemp =s.next();
+        while(dniTemp.length() !=9){
+            System.out.println("Error de longitud, ingrese un DNI correcto:");
+            dniTemp= s.next();
+        }
+        dni = validarDni(dniTemp);
 
         System.out.println("Nombre:");
         name = s.next();
@@ -150,19 +154,29 @@ public class Menu {
     //METODO VALIDADOR DE DNI
 
     public String validarDni(String dni) {
-        if(dni.length()!=9){
-            return "DNI ERRONEO";
-        }
+
+        Scanner s = new Scanner(System.in);
+        String dniTemp = dni;
+        Pattern patron = Pattern.compile("[0-9]{7,8}[A-Za-z]");
+        Matcher mat = patron.matcher(dniTemp);
+        String letra[] = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
+        int total = 0;
+        String letraDni = dniTemp.substring(8,9).toUpperCase();
         for(int i = 0; i < 8; i++){
-            if(dni.charAt(i) != '0' ||dni.charAt(i) != '1'||dni.charAt(i) != '2'||dni.charAt(i) != '3'||dni.charAt(i) != '4'||dni.charAt(i) != '5'||dni.charAt(i) != '6'|| dni.charAt(i) != '7' || dni.charAt(i) != '8'|| dni.charAt(i) != '9'){
-                return "DNI ERRONEO";
+            total += Integer.parseInt(dniTemp.substring(i, i+1));
+        }
+        total /=23;
+        while(!mat.matches() || !letraDni.equals(letra[total])){
+            System.out.println("Dni incorrecto, introduce un dni correcto:");
+            dniTemp= s.nextLine();
+            total= 0;
+            for(int i = 0; i < 8; i++){
+                total += Integer.parseInt(dniTemp.substring(i, i+1));
             }
+            total /=23;
+            letraDni = dniTemp.substring(8,9).toUpperCase();
+            mat = patron.matcher(dniTemp);
         }
-        if(){
-
-        }
-        String letra[]={"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
-        return dni;
+        return dniTemp;
     }
-
 }

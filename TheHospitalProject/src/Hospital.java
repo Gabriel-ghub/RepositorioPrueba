@@ -1,19 +1,21 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+
 
 public class Hospital {
-    String name;
-    double money;
-    ArrayList<String> specialities = new ArrayList<String>();
-    ArrayList<Patient>patientsWaiting;
-    ArrayList<Doctor>doctors;
+   private String name;
+   private double money;
+   private ArrayList<String> specialities = new ArrayList<String>();
+   private ArrayList<Patient>patientsWaiting;
+   private ArrayList<Doctor>doctors;
 
 
     public Hospital(String name, double money){
         this.name= name;
         this.money= money;
-        this.patientsWaiting=new ArrayList<Patient>();
+        patientsWaiting=new ArrayList<Patient>();
         this.doctors=new ArrayList<Doctor>();
         specialities.add("DERMATOLOGY");
         specialities.add("CARDIOLOGY");
@@ -24,10 +26,28 @@ public class Hospital {
     }
 
     public void addPatient(Patient patient){
-        this.patientsWaiting.add(patient);
+        patientsWaiting.add(patient);
     }
     public void addDoctor(Doctor doctor){
         this.doctors.add(doctor);
+    }
+
+    public Patient registerPatient(Patient e){
+        patientsWaiting.add(e);
+        return e;
+    }
+
+    public Doctor registerDoctor(Doctor e){
+        doctors.add(e);
+        return e;
+    }
+
+    public ArrayList<Patient> getPatientsWaiting() {
+        return patientsWaiting;
+    }
+
+    public ArrayList<Doctor> getDoctors() {
+        return doctors;
     }
 
     @Override

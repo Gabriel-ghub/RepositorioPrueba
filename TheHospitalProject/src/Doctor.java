@@ -1,7 +1,7 @@
 public class Doctor {
     String dni;
     String name;
-    String lasName;
+    String lastName;
     int age;
     String speciality;
     double salary;
@@ -10,7 +10,7 @@ public class Doctor {
         
         this.dni = dni;
         this.name = name;
-        this.lasName = lasName;
+        this.lastName = lasName;
         this.age = age;
         this.speciality = speciality;
         this.salary = salary;
@@ -32,12 +32,12 @@ public class Doctor {
         this.name = name;
     }
 
-    public String getLasName() {
-        return lasName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLasName(String lasName) {
-        this.lasName = lasName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getAge() {
@@ -69,7 +69,7 @@ public class Doctor {
         return "Doctor{" +
                 "dni='" + dni + '\'' +
                 ", name='" + name + '\'' +
-                ", lasName='" + lasName + '\'' +
+                ", lasName='" + lastName + '\'' +
                 ", age=" + age +
                 ", speciality='" + speciality + '\'' +
                 ", salary=" + salary +

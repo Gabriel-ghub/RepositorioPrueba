@@ -25,6 +25,7 @@ public class Hospital {
 
     }
 
+
     public void addPatient(Patient patient){
         patientsWaiting.add(patient);
     }
@@ -48,6 +49,58 @@ public class Hospital {
 
     public ArrayList<Doctor> getDoctors() {
         return doctors;
+    }
+
+    public void modifyPatient(String dni){
+        Scanner s = new Scanner(System.in);
+        if(patientsWaiting.size() == 0){
+            System.out.println("No existe ningun paciente");
+        }
+        else {
+            for (Patient p :
+                    patientsWaiting) {
+                if (!dni.equals(p.getDni())) {
+                    System.out.println("El dni no existe");
+                }
+                else{
+                    System.out.println("Que dato desea modificar?: \n" +
+                            "1- DNI: " + p.getDni()+ "\n"+
+                            "2- SSN: " + p.getSsn()+ "\n"+
+                            "3- Name: " + p.getName()+ "\n"+
+                            "4- LastName: " + p.getLastName()+ "\n"+
+                            "5- Age: " + p.getAge()+ "\n"+
+                            "6- Phone: " + p.getPhone()+ "\n"+
+                            "7- Disease: " + p.getDisease()+ "\n"+
+                            "8- Exit");
+                    int opcion = s.nextInt();
+                        switch (opcion) {
+                            case 1:
+                                Menu m = new Menu();
+                                String dniTemp="";
+                                boolean flag = true;
+                                while (flag){
+                                    System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
+                                    dniTemp = s.next();
+                                    for (Patient a :
+                                            patientsWaiting) {
+                                        if(dniTemp.equals(a.getDni())){
+                                            System.out.println("El DNI ya existe, ingrese otro:");
+                                            dniTemp= s.next();
+                                            break;
+                                        }
+                                    }
+                                    flag=false;
+                                }
+                                while(dniTemp.length() !=9){
+                                    System.out.println("Error de longitud, ingrese un DNI correcto:");
+                                    dniTemp= s.next();
+                                }
+                                p.setDni(m.validarDni(dniTemp));
+                                System.out.println("El cambio fue realizado con exito. !Muchas gracias!");
+                        }
+                }
+            }
+        }
     }
 
     @Override

@@ -36,12 +36,16 @@ public class Menu {
                         hospital.registerDoctor(tomarDatosDoctor(hospital));
                         break;
                     case 3:
+                        System.out.println("Ingrese el DNI del paciente:");
+                        String dniTemp=s.next();
+                        hospital.modifyPatient(dniTemp);
+
 
 
                         break;
 
                     case 4:
-
+                        System.out.println("Ingrese el DNI del doctor:");
                         break;
 
                     case 5:

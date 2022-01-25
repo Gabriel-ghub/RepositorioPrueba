@@ -30,12 +30,13 @@ public class Menu {
                 opcion = s.nextInt();
                 switch (opcion) {
                     case 1:
-                        hospital.registerPatient(tomarDatosPaciente());
+                        hospital.registerPatient(tomarDatosPaciente(hospital));
                         break;
                     case 2:
-                        hospital.registerDoctor(tomarDatosDoctor());
+                        hospital.registerDoctor(tomarDatosDoctor(hospital));
                         break;
                     case 3:
+
 
                         break;
 
@@ -75,7 +76,7 @@ public class Menu {
 
     //METODO TOMAR DATOS PACIENTE
 
-    public Patient tomarDatosPaciente() {
+    public Patient tomarDatosPaciente(Hospital hospital) {
         Scanner s = new Scanner(System.in);
         String dni;
         String ssn;
@@ -84,6 +85,7 @@ public class Menu {
         int age;
         int phone;
         String disease;
+        System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
         String dniTemp =s.next();
         while(dniTemp.length() !=9){
             System.out.println("Error de longitud, ingrese un DNI correcto:");
@@ -113,7 +115,7 @@ public class Menu {
         return patient;
     }
 
-    public Doctor tomarDatosDoctor() {
+    public Doctor tomarDatosDoctor(Hospital hospital) {
         Scanner s = new Scanner(System.in);
         String dni;
         String name;
@@ -121,9 +123,22 @@ public class Menu {
         int age;
         String speciality;
         double salary;
+        boolean flag = true;
+        String dniTemp="";
+        while (flag){
+            System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
+            dniTemp = s.next();
+            for (Doctor d :
+                    hospital.getDoctors()) {
+                if(dniTemp.equals(d.getDni())){
+                    System.out.println("El DNI ya existe, ingrese otro:");
+                    dniTemp= s.next();
+                    break;
+                }
+            }
+            flag=false;
+        }
 
-        System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
-        String dniTemp =s.next();
         while(dniTemp.length() !=9){
             System.out.println("Error de longitud, ingrese un DNI correcto:");
             dniTemp= s.next();
@@ -160,20 +175,12 @@ public class Menu {
         Pattern patron = Pattern.compile("[0-9]{7,8}[A-Za-z]");
         Matcher mat = patron.matcher(dniTemp);
         String letra[] = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
-        int total = 0;
         String letraDni = dniTemp.substring(8,9).toUpperCase();
-        for(int i = 0; i < 8; i++){
-            total += Integer.parseInt(dniTemp.substring(i, i+1));
-        }
-        total /=23;
-        while(!mat.matches() || !letraDni.equals(letra[total])){
+        int numDni = Integer.parseInt(dniTemp.substring(0,8));
+        int posicionArray = numDni%23;
+        while(!mat.matches() || !letraDni.equals(letra[posicionArray])){
             System.out.println("Dni incorrecto, introduce un dni correcto:");
             dniTemp= s.nextLine();
-            total= 0;
-            for(int i = 0; i < 8; i++){
-                total += Integer.parseInt(dniTemp.substring(i, i+1));
-            }
-            total /=23;
             letraDni = dniTemp.substring(8,9).toUpperCase();
             mat = patron.matcher(dniTemp);
         }

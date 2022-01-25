@@ -6,11 +6,11 @@ public class Doctor {
     String speciality;
     double salary;
 
-    public Doctor(String dni, String name, String lasName, int age, String speciality, double salary) {
+    public Doctor(String dni, String name, String lastName, int age, String speciality, double salary) {
         
         this.dni = dni;
         this.name = name;
-        this.lastName = lasName;
+        this.lastName = lastName;
         this.age = age;
         this.speciality = speciality;
         this.salary = salary;

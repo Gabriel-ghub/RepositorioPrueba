@@ -51,7 +51,54 @@ public class Hospital {
         return doctors;
     }
 
-    public void modifyPatient(String dni){
+    public void modifyPatient(String dni, Hospital hospital){
+        Scanner s = new Scanner(System.in);
+        if(patientsWaiting.size() == 0){
+            System.out.println("No existe ningun paciente");
+        }
+        else {
+            for (Patient p :
+                    patientsWaiting) {
+                if (!dni.equals(p.getDni())) {
+                    System.out.println("El dni no existe");
+                }
+                else{
+                    System.out.println("Que dato desea modificar?: \n" +
+                            "1- Name: " + p.getName()+ "\n"+
+                            "2- LastName: " + p.getLastName()+ "\n"+
+                            "3- Age: " + p.getAge()+ "\n"+
+                            "4- Phone: " + p.getPhone()+ "\n"+
+                            "5- Disease: " + p.getDisease()+ "\n"+
+                            "6- Exit");
+                    int opcion = s.nextInt();
+                        switch (opcion) {
+                            case 1:
+                                System.out.println();
+                        }
+                }
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Hospital{" +
+                "name='" + name + '\'' +
+                ", money=" + money +
+                ", specialities=" + specialities +
+                ", patientsWaiting=" + patientsWaiting +
+                ", doctors=" + doctors +
+                '}';
+    }
+
+
+
+
+
+
+
+//metodo sustitucion:
+/*    public void modifyPatient(String dni, Hospital hospital){
         Scanner s = new Scanner(System.in);
         if(patientsWaiting.size() == 0){
             System.out.println("No existe ningun paciente");
@@ -73,45 +120,33 @@ public class Hospital {
                             "7- Disease: " + p.getDisease()+ "\n"+
                             "8- Exit");
                     int opcion = s.nextInt();
-                        switch (opcion) {
-                            case 1:
-                                Menu m = new Menu();
-                                String dniTemp="";
-                                boolean flag = true;
-                                while (flag){
-                                    System.out.println("Por favor, ingrese los datos Paciente: \n DNI:");
-                                    dniTemp = s.next();
-                                    for (Patient a :
-                                            patientsWaiting) {
-                                        if(dniTemp.equals(a.getDni())){
-                                            System.out.println("El DNI ya existe, ingrese otro:");
-                                            dniTemp= s.next();
+                    switch (opcion) {
+                        case 1:
+                            Menu m = new Menu();
+                            String dniTemp="";
+                            boolean flag = true;
+                            while (flag){
+                                System.out.println("Por favor, ingrese los datos Paciente: \n DNI:");
+                                dniTemp = s.next();
+                                for (Patient a :
+                                        patientsWaiting) {
+                                    if(dniTemp.equals(a.getDni())){
+                                        System.out.println("El DNI ya existe, ingrese otro:");
+                                        dniTemp= s.next();
 
-                                        }
                                     }
-                                    flag=false;
                                 }
-                                while(dniTemp.length() !=9){
-                                    System.out.println("Error de longitud, ingrese un DNI correcto:");
-                                    dniTemp= s.next();
-                                }
-                                p.setDni(m.validarDni(dniTemp));
-                                System.out.println("El cambio fue realizado con exito. !Muchas gracias!");
-                        }
+                                flag=false;
+                            }
+                            while(dniTemp.length() !=9){
+                                System.out.println("Error de longitud, ingrese un DNI correcto:");
+                                dniTemp= s.next();
+                            }
+                            p.setDni(m.validarDni(dniTemp,hospital));
+                            System.out.println("El cambio fue realizado con exito. !Muchas gracias!");
+                    }
                 }
             }
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Hospital{" +
-                "name='" + name + '\'' +
-                ", money=" + money +
-                ", specialities=" + specialities +
-                ", patientsWaiting=" + patientsWaiting +
-                ", doctors=" + doctors +
-                '}';
-    }
-
+    }*/
 }

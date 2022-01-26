@@ -89,8 +89,24 @@ public class Menu {
         int age;
         int phone;
         String disease;
-        System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
-        String dniTemp =s.next();
+        String dniTemp="";
+        boolean flag = true;
+        while(flag) {
+            System.out.println("Por favor, ingrese los datos del Paciente: \n DNI:");
+            dniTemp=s.nextLine();
+            boolean esta=false;
+            for (Patient p :
+                    hospital.getPatientsWaiting()) {
+                if (dniTemp.equals(p.getDni())) {
+                    System.out.println("El dni ya existe, ingrese otro.");
+                    esta= true;
+                    //dniTemp = s.next();
+                    break;
+                }
+            }
+            if(!esta)
+                flag=false;
+        }
         while(dniTemp.length() !=9){
             System.out.println("Error de longitud, ingrese un DNI correcto:");
             dniTemp= s.next();
@@ -130,7 +146,7 @@ public class Menu {
         boolean flag = true;
         String dniTemp="";
         while (flag){
-            System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
+            System.out.println("Por favor, ingrese los datos: \n DNI:");
             dniTemp = s.next();
             for (Doctor d :
                     hospital.getDoctors()) {

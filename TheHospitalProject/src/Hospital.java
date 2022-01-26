@@ -79,14 +79,14 @@ public class Hospital {
                                 String dniTemp="";
                                 boolean flag = true;
                                 while (flag){
-                                    System.out.println("Por favor, ingrese los datos del Doctor: \n DNI:");
+                                    System.out.println("Por favor, ingrese los datos Paciente: \n DNI:");
                                     dniTemp = s.next();
                                     for (Patient a :
                                             patientsWaiting) {
                                         if(dniTemp.equals(a.getDni())){
                                             System.out.println("El DNI ya existe, ingrese otro:");
                                             dniTemp= s.next();
-                                            break;
+
                                         }
                                     }
                                     flag=false;

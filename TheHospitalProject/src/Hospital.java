@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -51,30 +52,89 @@ public class Hospital {
         return doctors;
     }
 
-    public void modifyPatient(String dni, Hospital hospital){
+    public void modifyPatient(){
         Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese el DNI del paciente:");
+        String dniTemp=s.next();
         if(patientsWaiting.size() == 0){
             System.out.println("No existe ningun paciente");
         }
         else {
             for (Patient p :
                     patientsWaiting) {
-                if (!dni.equals(p.getDni())) {
-                    System.out.println("El dni no existe");
+                if (!dniTemp.equals(p.getDni())) {
+                    System.out.println("El DNI no existe");
                 }
                 else{
-                    System.out.println("Que dato desea modificar?: \n" +
-                            "1- Name: " + p.getName()+ "\n"+
-                            "2- LastName: " + p.getLastName()+ "\n"+
-                            "3- Age: " + p.getAge()+ "\n"+
-                            "4- Phone: " + p.getPhone()+ "\n"+
-                            "5- Disease: " + p.getDisease()+ "\n"+
-                            "6- Exit");
+                    System.out.println("Solo se puede modificar el teléfono \n" +
+                            "1- Phone: " + p.getPhone()+ "\n"+
+                            "2- Exit");
+                    try {
                     int opcion = s.nextInt();
                         switch (opcion) {
                             case 1:
-                                System.out.println();
+                                try{
+                                System.out.println("Ingrese el nuevo telefono");
+                                p.setPhone(s.nextInt());
+                                System.out.println("Muchas gracias, la operación se realizó con exito");
+                                break;
+                                }catch (InputMismatchException e){
+                                    System.out.println("Debes ingresar un numero");
+                                }
+                            case 2:
+                                break;
+                            default:
+                                System.out.println("Opcion invalida. Deberá iniciar la operación nuevamente ");
+
                         }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Debes ingresar un número.Deberá iniciar la operación nuevamente");
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    public void modifyDoctor(){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese el DNI del Doctor:");
+        String dniTemp=s.next();
+        if(patientsWaiting.size() == 0){
+            System.out.println("No existe ningun Doctor");
+        }
+        else {
+            for (Doctor d :
+                    doctors) {
+                if (!dniTemp.equals(d.getDni())) {
+                    System.out.println("El DNI no existe");
+                }
+                else{
+                    System.out.println("Solo se puede modificar el salario \n" +
+                            "1- Salary: " + d.getSalary()+ "\n"+
+                            "2- Exit");
+                    try {
+                        int opcion = s.nextInt();
+                        switch (opcion) {
+                            case 1:
+                                try{
+                                    System.out.println("Ingrese el nuevo salario");
+                                    d.setSalary(s.nextInt());
+                                    System.out.println("Muchas gracias, la operación se realizó con exito");
+                                    break;
+                                }catch (InputMismatchException e){
+                                    System.out.println("Debes ingresar un numero");
+                                }
+                            case 2:
+                                break;
+                            default:
+                                System.out.println("Opcion invalida. Deberá iniciar la operación nuevamente ");
+
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Debes ingresar un número.Deberá iniciar la operación nuevamente");
+                    }
                 }
             }
         }
@@ -92,11 +152,23 @@ public class Hospital {
     }
 
 
+    public ArrayList<String> getSpecialities() {
+        return specialities;
+    }
+}
 
 
 
 
 
+
+
+
+
+
+
+
+//METODO QUE NO ESTOY UTILIZANDO ACTUALMENTE.
 //metodo sustitucion:
 /*    public void modifyPatient(String dni, Hospital hospital){
         Scanner s = new Scanner(System.in);
@@ -149,4 +221,3 @@ public class Hospital {
             }
         }
     }*/
-}

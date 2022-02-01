@@ -36,14 +36,11 @@ public class Menu {
                         hospital.registerDoctor(tomarDatosDoctor(hospital));
                         break;
                     case 3:
-                        System.out.println("Ingrese el DNI del paciente:");
-                        String dniTemp=s.next();
-                        hospital.modifyPatient(dniTemp,hospital);
+                        hospital.modifyPatient();
                         break;
-
                     case 4:
+                        hospital.modifyDoctor();
                         break;
-
                     case 5:
                         System.out.println(hospital.getPatientsWaiting());
                         break;
@@ -53,7 +50,7 @@ public class Menu {
                         break;
 
                     case 7:
-
+                        borrarDoctor(hospital);
                         break;
 
 
@@ -66,11 +63,10 @@ public class Menu {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Debes ingresar un número");
-                s.next();
+                s.nextLine();
             }
         }
         System.out.println("Adiós Gracias");
-
     }
 
 
@@ -109,6 +105,10 @@ public class Menu {
 
             System.out.println("Edad:");
             age = s.nextInt();
+            if(age<0 || age>120){
+                System.out.println("No es posible asignar ese valor a la edad. Se cerrará la solicitud");
+                break;
+            }
 
             System.out.println("Telefono:");
             phone = s.nextInt();
@@ -137,6 +137,7 @@ public class Menu {
             boolean esValido;
             String disease;
             String dniTemp = "";
+            String specialityTemp="";
             System.out.println("Ingrese el dni:");
             dniTemp = s.next();
             esValido = validarDniCorrectoDoctor(dniTemp, hospital);
@@ -153,10 +154,19 @@ public class Menu {
 
             System.out.println("Edad:");
             age = s.nextInt();
+            if(age<0 || age>120){
+                System.out.println("No es posible asignar ese valor a la edad. Se cerrará la solicitud");
+                break;
+            }
 
             System.out.println("Especialidad:");
-            speciality = s.next();
-
+            specialityTemp = s.next();
+            boolean especialidad = validarEspecialidad(specialityTemp,hospital);
+            if(!especialidad){
+               break;
+            }else{
+                speciality=specialityTemp;
+            }
 
             System.out.println("Salario:");
             salary = s.nextDouble();
@@ -171,48 +181,6 @@ public class Menu {
 
     //METODO VALIDADOR DE DNI
 
-    public String validarDni(String dni, Hospital hospital) {
-
-        Scanner s = new Scanner(System.in);
-        String dniTemp = dni;
-        Pattern patron = Pattern.compile("[0-9]{7,8}[A-Za-z]");
-        Matcher mat = patron.matcher(dniTemp);
-        String letra[] = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
-        String letraDni = dniTemp.substring(8,9).toUpperCase();
-        int numDni = Integer.parseInt(dniTemp.substring(0,8));
-        int posicionArray = numDni%23;
-        while(!mat.matches() || !letraDni.equals(letra[posicionArray])){
-            System.out.println("Dni incorrecto, introduce un dni correcto:");
-            dniTemp= s.nextLine();
-            letraDni = dniTemp.substring(8,9).toUpperCase();
-            mat = patron.matcher(dniTemp);
-        }
-        boolean flag = true;
-        while(flag) {
-            System.out.println("Por favor, ingrese los datos del Paciente: \n DNI:");
-            dniTemp=s.nextLine();
-            boolean esta=false;
-            for (Patient p :
-                    hospital.getPatientsWaiting()) {
-                if (dniTemp.equals(p.getDni())) {
-                    System.out.println("El dni ya existe. Realice la operacion nuevamente y verifique los datos");
-                    esta= true;
-                    //dniTemp = s.next();
-                    break;
-                }
-            }
-            if(!esta)
-                flag=false;
-        }
-        while(dniTemp.length() !=9){
-            System.out.println("Error de longitud, ingrese un DNI correcto:");
-            dniTemp= s.next();
-        }
-
-        return dniTemp;
-    }
-
-
     public boolean validarDniCorrecto(String dni, Hospital hospital){
         Scanner s = new Scanner(System.in);
         String dniTemp = dni;
@@ -220,7 +188,7 @@ public class Menu {
         Matcher mat = patron.matcher(dniTemp);
         String letra[] = {"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
         if (!mat.matches()){
-            System.out.println("El dni no cumple con los parametros, recuerda que deben ser 8 digitos y una letra (La letra será validada.)");
+            System.out.println("El dni no cumple con los parametros, recuerda que deben ser 8 digitos y una letra (La letra será validada)");
             return false;
         }else if(mat.matches()){
             String letraDni = dniTemp.substring(8,9).toUpperCase();
@@ -271,4 +239,40 @@ public class Menu {
         }
         return true;
     }
+
+    public boolean validarEspecialidad(String speciality,Hospital hospital){
+        for (String h :
+                hospital.getSpecialities()) {
+            if(!speciality.equals(h)){
+                System.out.println("Este hospital no dispone de esa especialidad, no podrá registrarse, lo lamento.");
+                return false;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void borrarDoctor(Hospital hospital){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese el DNI del doctor que desea borrar:");
+        String dni = s.nextLine();
+        boolean flag = false;
+        int idDoc=0;
+        for (Doctor d:
+             hospital.getDoctors()) {
+            if(d.getDni().equals(dni)){
+                System.out.println("El doctor ha sido eliminado");
+                flag = true;
+                break;
+            }
+            idDoc++;
+        }
+        if(flag) {
+            hospital.getDoctors().remove(idDoc);
+        }else{
+            System.out.println("No se ha encontrado el Doctor");
+        }
+    }
+
 }

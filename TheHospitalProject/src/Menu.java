@@ -23,7 +23,8 @@ public class Menu {
                             "5- Show all patients\n" +
                             "6- Show all doctors\n" +
                             "7- Delete doctor\n" +
-                            "8 - Exit"
+                            "8- Attend a patient\n" +
+                            "9 - Exit"
             );
 
             try {
@@ -54,7 +55,7 @@ public class Menu {
                         break;
 
 
-                    case 8:
+                    case 9:
                         salir = true;
                         break;
 
@@ -139,7 +140,7 @@ public class Menu {
             String dniTemp = "";
             String specialityTemp="";
             System.out.println("Ingrese el dni:");
-            dniTemp = s.next();
+            dniTemp = s.nextLine();
             esValido = validarDniCorrectoDoctor(dniTemp, hospital);
             if (!esValido) {
                 break;
@@ -160,7 +161,7 @@ public class Menu {
             }
 
             System.out.println("Especialidad:");
-            specialityTemp = s.next();
+            specialityTemp = s.nextLine();
             boolean especialidad = validarEspecialidad(specialityTemp,hospital);
             if(!especialidad){
                break;
@@ -275,4 +276,25 @@ public class Menu {
         }
     }
 
-}
+    public void atenddPatient(Hospital hospital){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese el DNI del paciente que desea atender:");
+        String dni = s.nextLine();
+        boolean flag = false;
+        int idDoc=0;
+        for (Doctor d:
+                hospital.getDoctors()) {
+            if(d.getDni().equals(dni)){
+                System.out.println("El doctor ha sido eliminado");
+                flag = true;
+                break;
+            }
+            idDoc++;
+        }
+            if(flag) {
+                hospital.getDoctors().remove(idDoc);
+            }else{
+                System.out.println("No se ha encontrado el Doctor");
+            }
+        }
+    }

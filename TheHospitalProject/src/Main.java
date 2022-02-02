@@ -3,7 +3,7 @@ public class Main {
 
 //        Creacion de paciente
 
-        Patient p1 = new Patient("71769762X", "12312312312312","Gabriel", "Romero", 26, 123123123, "DERMATOLOGY2");
+        Patient p1 = new Patient("71769762X", "12312312312312","Gabriel", "Romero", 26, 123123123, "DERMATOLOGY");
 //        System.out.println(p1.toString());
 
 //        Creacion de Doctor

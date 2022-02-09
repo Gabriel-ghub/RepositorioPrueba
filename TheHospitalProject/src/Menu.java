@@ -1,3 +1,4 @@
+import javax.print.Doc;
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
@@ -54,7 +55,9 @@ public class Menu {
                         borrarDoctor(hospital);
                         break;
 
-
+                    case 8:
+                        atenddPatient(hospital);
+                        break;
                     case 9:
                         salir = true;
                         break;
@@ -276,25 +279,34 @@ public class Menu {
         }
     }
 
+
+
+
     public void atenddPatient(Hospital hospital){
         Scanner s = new Scanner(System.in);
         System.out.println("Ingrese el DNI del paciente que desea atender:");
         String dni = s.nextLine();
         boolean flag = false;
-        int idDoc=0;
-        for (Doctor d:
-                hospital.getDoctors()) {
-            if(d.getDni().equals(dni)){
-                System.out.println("El doctor ha sido eliminado");
-                flag = true;
-                break;
+        interrupt:
+        for (Patient p:
+                hospital.getPatientsWaiting()) {
+            if(p.getDni().equals(dni)){
+                for (Doctor d:
+                     hospital.getDoctors()) {
+                    if(p.getDisease().equals(d.getSpeciality())){
+                        d.getAttendedPatient().add(p);
+                        System.out.println("El paciente: " +p.getName() +" " + p.getLastName() + " sera atendido por el Doctor: " + d.getName() + " " + d.getLastName());
+                        hospital.getPatientsWaiting().remove(p);
+                        flag = true;
+                        break interrupt;
+                    }else{
+                        System.out.println("No hay ningun doctor que atienda su enfermedad en estos momentos. Lo lamentamos.");
+                    }
+                }
             }
-            idDoc++;
         }
-            if(flag) {
-                hospital.getDoctors().remove(idDoc);
-            }else{
-                System.out.println("No se ha encontrado el Doctor");
-            }
+        if(!flag){
+            System.out.println("No se ha encontrado el paciente");
         }
     }
+}

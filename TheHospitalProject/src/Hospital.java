@@ -13,6 +13,7 @@ public class Hospital {
    private ArrayList<Doctor>doctors;
 
 
+
     public Hospital(String name, double money){
         this.name= name;
         this.money= money;
@@ -43,6 +44,7 @@ public class Hospital {
         doctors.add(e);
         return e;
     }
+
 
     public ArrayList<Patient> getPatientsWaiting() {
         return patientsWaiting;

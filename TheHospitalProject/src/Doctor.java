@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Doctor {
     String dni;
     String name;
@@ -5,6 +7,7 @@ public class Doctor {
     int age;
     String speciality;
     double salary;
+    ArrayList<Patient> attendedPatient = new ArrayList<Patient>();
 
     public Doctor(String dni, String name, String lastName, int age, String speciality, double salary) {
         
@@ -15,6 +18,8 @@ public class Doctor {
         this.speciality = speciality;
         this.salary = salary;
     }
+
+
 
     public String getDni() {
         return dni;
@@ -62,6 +67,14 @@ public class Doctor {
 
     public void setSalary(double salary) {
         this.salary = salary;
+    }
+
+    public ArrayList<Patient> getAttendedPatient() {
+        return attendedPatient;
+    }
+
+    public void setAttendedPatient(ArrayList<Patient> attendedPatient) {
+        this.attendedPatient = attendedPatient;
     }
 
     @Override

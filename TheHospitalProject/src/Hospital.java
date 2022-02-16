@@ -11,6 +11,7 @@ public class Hospital {
    private ArrayList<String> specialities = new ArrayList<String>();
    private ArrayList<Patient>patientsWaiting;
    private ArrayList<Doctor>doctors;
+    private ArrayList<Patient>patientUnattended = new ArrayList<>();
 
 
 
@@ -45,6 +46,13 @@ public class Hospital {
         return e;
     }
 
+    public ArrayList<Patient> getPatientUnattended() {
+        return patientUnattended;
+    }
+
+    public void setPatientUnattended(ArrayList<Patient> patientUnattended) {
+        this.patientUnattended = patientUnattended;
+    }
 
     public ArrayList<Patient> getPatientsWaiting() {
         return patientsWaiting;

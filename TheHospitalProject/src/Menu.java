@@ -21,7 +21,7 @@ public class Menu {
                             "2- Register doctor\n" +
                             "3- Modify patient\n" +
                             "4- Modify doctor\n" +
-                            "5- Show all patients\n" +
+                            "5- Menú pacientes\n" +
                             "6- Show all doctors\n" +
                             "7- Delete doctor\n" +
                             "8- Attend a patient\n" +
@@ -44,9 +44,8 @@ public class Menu {
                         hospital.modifyDoctor();
                         break;
                     case 5:
-                        System.out.println(hospital.getPatientsWaiting());
+                        menuPacientes(hospital);
                         break;
-
                     case 6:
                         System.out.println(hospital.getDoctors());
                         break;
@@ -287,10 +286,12 @@ public class Menu {
         System.out.println("Ingrese el DNI del paciente que desea atender:");
         String dni = s.nextLine();
         boolean flag = false;
+        Patient temp=null;
         interrupt:
         for (Patient p:
                 hospital.getPatientsWaiting()) {
             if(p.getDni().equals(dni)){
+                temp=p;
                 for (Doctor d:
                      hospital.getDoctors()) {
                     if(p.getDisease().equals(d.getSpeciality())){
@@ -299,14 +300,142 @@ public class Menu {
                         hospital.getPatientsWaiting().remove(p);
                         flag = true;
                         break interrupt;
-                    }else{
-                        System.out.println("No hay ningun doctor que atienda su enfermedad en estos momentos. Lo lamentamos.");
                     }
                 }
             }
         }
         if(!flag){
-            System.out.println("No se ha encontrado el paciente");
+            System.out.println("No hay ningun doctor que atienda su enfermedad en estos momentos. Lo lamentamos. Este paciente sera ingresado en la lista de pacientes no atendidos.");
+            hospital.getPatientUnattended().add(temp);
+            hospital.getPatientsWaiting().remove(temp);
         }
     }
+
+    public void menuPacientes(Hospital hospital){
+        Scanner s = new Scanner(System.in);
+        boolean flag = false;
+        int opcion;
+        while(!flag){
+            System.out.println("Este ese el submenu de los pacientes, ingrese una opciones\n" +
+                    "1- Listar los pacientes en espera\n" +
+                    "2- Listar los pacientes atendidos\n" +
+                    "3- Listar los pacientes que fueron atendidos por un doctor\n" +
+                    "4- Listar los pacientes que no pudieron ser atendidos\n" +
+                    "5- Exit");
+            try {
+                opcion = s.nextInt();
+                switch(opcion){
+                    case 1:
+                        System.out.println(hospital.getPatientsWaiting());
+                        break;
+                    case 2:
+                        for (Doctor d:
+                             hospital.getDoctors()) {
+                            System.out.println(d.getAttendedPatient());
+                        };
+                        break;
+                    case 3:
+                        submenuPacientes(hospital);
+                        break;
+                    case 4:
+                        System.out.println(hospital.getPatientUnattended());
+                        break;
+                    case 5:
+                        flag = true;
+                        break;
+                    default:
+                        System.out.println("Opcion invalida");
+                        break;
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.println("Debes ingresar un número");
+                s.nextLine();
+            }
+        }
+    }
+
+    public void submenuPacientes(Hospital hospital){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Ingrese el DNI del doctor: ");
+        String dni = s.nextLine();
+        for (Doctor d:
+                hospital.getDoctors()) {
+            if(d.getDni().equals(dni)){
+                if(d.getAttendedPatient().size() > 0) {
+                    System.out.println("El doctor" + d.getName() + " " + d.getLastName() + " a atendido a los sigueintes pacientes: ");
+                    System.out.println(d.getAttendedPatient());
+                }
+            }else if(!d.getDni().equals(dni)){
+                System.out.print("");
+            }
+        }
+    }
+
 }
+/*
+*     public void inicioMenu(Hospital hospital) {
+
+        Scanner s = new Scanner(System.in);
+        int opcion;
+        boolean salir = false;
+        while (!salir) {
+
+            System.out.println("Bienvenido al sistema del Hospital, le rogamos que ingrese una opcion:");
+            System.out.println(
+                    "MENU:" + "\n" +
+                            "1- Register patient\n" +
+                            "2- Register doctor\n" +
+                            "3- Modify patient\n" +
+                            "4- Modify doctor\n" +
+                            "5- Menú pacientes\n" +
+                            "6- Show all doctors\n" +
+                            "7- Delete doctor\n" +
+                            "8- Attend a patient\n" +
+                            "9 - Exit"
+            );
+
+            try {
+                opcion = s.nextInt();
+                switch (opcion) {
+                    case 1:
+                        hospital.registerPatient(tomarDatosPaciente(hospital));
+                        break;
+                    case 2:
+                        hospital.registerDoctor(tomarDatosDoctor(hospital));
+                        break;
+                    case 3:
+                        hospital.modifyPatient();
+                        break;
+                    case 4:
+                        hospital.modifyDoctor();
+                        break;
+                    case 5:
+                        System.out.println(hospital.getPatientsWaiting());
+                        break;
+
+                    case 6:
+                        System.out.println(hospital.getDoctors());
+                        break;
+
+                    case 7:
+                        borrarDoctor(hospital);
+                        break;
+
+                    case 8:
+                        atenddPatient(hospital);
+                        break;
+                    case 9:
+                        salir = true;
+                        break;
+
+                    default:
+                        System.out.println("Opcion invalida. Por favor eliga una opcion correcta");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes ingresar un número");
+                s.nextLine();
+            }
+        }
+        System.out.println("Adiós Gracias");
+    }*/

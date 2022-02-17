@@ -47,7 +47,11 @@ public class Menu {
                         menuPacientes(hospital);
                         break;
                     case 6:
-                        System.out.println(hospital.getDoctors());
+                        for (Doctor d:
+                             hospital.getDoctors()) {
+                            System.out.println("Nombre:"+d.name + " /"+"Apellido: "+d.getLastName() +" / DNI: "+ d.getDni() + " /"+"Especialidad: "+d.getSpeciality());
+                        }
+                        System.out.println("");
                         break;
 
                     case 7:
@@ -321,7 +325,7 @@ public class Menu {
                     "2- Listar los pacientes atendidos\n" +
                     "3- Listar los pacientes que fueron atendidos por un doctor\n" +
                     "4- Listar los pacientes que no pudieron ser atendidos\n" +
-                    "5- Exit");
+                    "5- Volver al menú principal");
             try {
                 opcion = s.nextInt();
                 switch(opcion){
@@ -338,7 +342,11 @@ public class Menu {
                         submenuPacientes(hospital);
                         break;
                     case 4:
-                        System.out.println(hospital.getPatientUnattended());
+                        if(hospital.getPatientUnattended().size() > 0){
+                            System.out.println(hospital.getPatientUnattended());
+                        }else {
+                            System.out.println("Aún no hay pacientes en esta lista\n");
+                        }
                         break;
                     case 5:
                         flag = true;
@@ -359,16 +367,27 @@ public class Menu {
         Scanner s = new Scanner(System.in);
         System.out.println("Ingrese el DNI del doctor: ");
         String dni = s.nextLine();
+        boolean flag = false;
         for (Doctor d:
                 hospital.getDoctors()) {
+            flag = false;
             if(d.getDni().equals(dni)){
-                if(d.getAttendedPatient().size() > 0) {
-                    System.out.println("El doctor" + d.getName() + " " + d.getLastName() + " a atendido a los sigueintes pacientes: ");
-                    System.out.println(d.getAttendedPatient());
+                if(d.getAttendedPatient().size() == 0) {
+                    System.out.println("El doctor aún no ha atendido ningún paciente\n");
+                }else if(d.getAttendedPatient().size() >0){
+                    System.out.println("El doctor " + d.getName() + " " + d.getLastName() + " a atendido a los sigueintes pacientes: ");
+                    for (Patient p:
+                         d.getAttendedPatient()) {
+                        System.out.println(p.name+" "+p.lastName);
+                    }
                 }
-            }else if(!d.getDni().equals(dni)){
-                System.out.print("");
+                break;
+            }else{
+                flag = true;
             }
+        }
+        if(flag){
+            System.out.println("No se ha encontrado ningún doctor con ese DNI\n");
         }
     }
 

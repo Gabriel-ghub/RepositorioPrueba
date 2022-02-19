@@ -42,11 +42,5 @@ public class Main {
         Garraham.addDoctor(d4);
         Garraham.addDoctor(d5);
         init.inicioMenu(Garraham);
-
-
-
-
     }
-
-
 }

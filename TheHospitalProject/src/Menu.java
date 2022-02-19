@@ -25,7 +25,9 @@ public class Menu {
                             "6- Show all doctors\n" +
                             "7- Delete doctor\n" +
                             "8- Attend a patient\n" +
-                            "9 - Exit"
+                            "9 - Add speciality\n" +
+                            "10 - Show all specialities\n"+
+                            "11 - Exit"
             );
 
             try {
@@ -62,6 +64,17 @@ public class Menu {
                         atenddPatient(hospital);
                         break;
                     case 9:
+                        addSpeciality(hospital);
+                        break;
+                    case 10:
+                        System.out.println("Estas son las especialidades del hospital:");
+                        for (String spe:
+                             hospital.getSpecialities()) {
+                            System.out.println(spe);
+                        }
+                        System.out.println();
+                        break;
+                    case 11:
                         salir = true;
                         break;
 
@@ -123,8 +136,7 @@ public class Menu {
             System.out.println("Enfermedad:");
             disease = s.next();
 
-            Patient patient = new Patient(dni, ssn, name, lastName, age, phone, disease);
-            return patient;
+            return new Patient(dni, ssn, name, lastName, age, phone, disease);
         }
         return null;
     }
@@ -178,8 +190,7 @@ public class Menu {
             System.out.println("Salario:");
             salary = s.nextDouble();
 
-            Doctor doctor = new Doctor(dni, name, lastName, age, speciality, salary);
-            return doctor;
+            return new Doctor(dni, name, lastName, age, speciality, salary);
         }
         return null;
     }
@@ -391,70 +402,11 @@ public class Menu {
         }
     }
 
-}
-/*
-*     public void inicioMenu(Hospital hospital) {
-
+    public void addSpeciality(Hospital hospital){
         Scanner s = new Scanner(System.in);
-        int opcion;
-        boolean salir = false;
-        while (!salir) {
-
-            System.out.println("Bienvenido al sistema del Hospital, le rogamos que ingrese una opcion:");
-            System.out.println(
-                    "MENU:" + "\n" +
-                            "1- Register patient\n" +
-                            "2- Register doctor\n" +
-                            "3- Modify patient\n" +
-                            "4- Modify doctor\n" +
-                            "5- Menú pacientes\n" +
-                            "6- Show all doctors\n" +
-                            "7- Delete doctor\n" +
-                            "8- Attend a patient\n" +
-                            "9 - Exit"
-            );
-
-            try {
-                opcion = s.nextInt();
-                switch (opcion) {
-                    case 1:
-                        hospital.registerPatient(tomarDatosPaciente(hospital));
-                        break;
-                    case 2:
-                        hospital.registerDoctor(tomarDatosDoctor(hospital));
-                        break;
-                    case 3:
-                        hospital.modifyPatient();
-                        break;
-                    case 4:
-                        hospital.modifyDoctor();
-                        break;
-                    case 5:
-                        System.out.println(hospital.getPatientsWaiting());
-                        break;
-
-                    case 6:
-                        System.out.println(hospital.getDoctors());
-                        break;
-
-                    case 7:
-                        borrarDoctor(hospital);
-                        break;
-
-                    case 8:
-                        atenddPatient(hospital);
-                        break;
-                    case 9:
-                        salir = true;
-                        break;
-
-                    default:
-                        System.out.println("Opcion invalida. Por favor eliga una opcion correcta");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número");
-                s.nextLine();
-            }
-        }
-        System.out.println("Adiós Gracias");
-    }*/
+        System.out.println("Indica la nueva especialidad");
+        String speciality = s.nextLine().toUpperCase();
+        hospital.getSpecialities().add(speciality);
+        System.out.println("La especialidad se agregó correctamente\n");
+    }
+}

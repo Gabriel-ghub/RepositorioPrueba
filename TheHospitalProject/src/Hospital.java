@@ -64,19 +64,19 @@ public class Hospital {
 
     public void modifyPatient(){
         Scanner s = new Scanner(System.in);
-        System.out.println("Ingrese el DNI del paciente:");
+        System.out.println("Enter the patient's ID:");
         String dniTemp=s.next();
         if(patientsWaiting.size() == 0){
-            System.out.println("No existe ningun paciente");
+            System.out.println("There is no patient");
         }
         else {
             for (Patient p :
                     patientsWaiting) {
                 if (!dniTemp.equals(p.getDni())) {
-                    System.out.println("El DNI no existe");
+                    System.out.println("The DNI does not exist");
                 }
                 else{
-                    System.out.println("Solo se puede modificar el teléfono \n" +
+                    System.out.println("Only phone can be modified \n" +
                             "1- Phone: " + p.getPhone()+ "\n"+
                             "2- Exit");
                     try {
@@ -84,21 +84,21 @@ public class Hospital {
                         switch (opcion) {
                             case 1:
                                 try{
-                                System.out.println("Ingrese el nuevo telefono");
+                                System.out.println("Enter the new phone");
                                 p.setPhone(s.nextInt());
-                                System.out.println("Muchas gracias, la operación se realizó con exito");
+                                System.out.println("Thank you very much, the operation was successful");
                                 break;
                                 }catch (InputMismatchException e){
-                                    System.out.println("Debes ingresar un numero");
+                                    System.out.println("You must enter a number");
                                 }
                             case 2:
                                 break;
                             default:
-                                System.out.println("Opcion invalida. Deberá iniciar la operación nuevamente ");
+                                System.out.println("Invalid option. You will need to start the operation again ");
 
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println("Debes ingresar un número.Deberá iniciar la operación nuevamente");
+                        System.out.println("You must enter a number. You will have to start the operation again");
                     }
                 }
             }
@@ -109,19 +109,19 @@ public class Hospital {
 
     public void modifyDoctor(){
         Scanner s = new Scanner(System.in);
-        System.out.println("Ingrese el DNI del Doctor:");
+        System.out.println("Enter the Doctor's DNI:");
         String dniTemp=s.next();
         if(patientsWaiting.size() == 0){
-            System.out.println("No existe ningun Doctor");
+            System.out.println("There is no doctor");
         }
         else {
             for (Doctor d :
                     doctors) {
                 if (!dniTemp.equals(d.getDni())) {
-                    System.out.println("El DNI no existe");
+                    System.out.println("The DNI does not exist");
                 }
                 else{
-                    System.out.println("Solo se puede modificar el salario \n" +
+                    System.out.println("You can only change the salary \n" +
                             "1- Salary: " + d.getSalary()+ "\n"+
                             "2- Exit");
                     try {
@@ -129,21 +129,22 @@ public class Hospital {
                         switch (opcion) {
                             case 1:
                                 try{
-                                    System.out.println("Ingrese el nuevo salario");
+                                    System.out.println("Enter the new salary");
                                     d.setSalary(s.nextInt());
-                                    System.out.println("Muchas gracias, la operación se realizó con exito");
+                                    System.out.println("Thank you very much, the operation was successful");
                                     break;
                                 }catch (InputMismatchException e){
-                                    System.out.println("Debes ingresar un numero");
+                                    System.out.println(
+                                            "You must enter a number");
                                 }
                             case 2:
                                 break;
                             default:
-                                System.out.println("Opcion invalida. Deberá iniciar la operación nuevamente ");
+                                System.out.println("Invalid option. You will need to start the operation again ");
 
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println("Debes ingresar un número.Deberá iniciar la operación nuevamente");
+                        System.out.println("You must enter a number. You will need to start the operation again");
                     }
                 }
             }
